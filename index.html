@@ -128,6 +128,33 @@ body {
 .email-input::placeholder { color: rgba(255,255,255,0.3); }
 .email-input:focus { border-color: var(--glow); }
 
+.consent-label {
+  flex: 1 1 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 440px;
+  margin: 4px auto 0;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, color 0.2s;
+}
+.consent-label input {
+  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--green);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
 .btn-join {
   padding: 14px 28px;
   background: linear-gradient(135deg, var(--green), #3d8b52);
@@ -345,8 +372,12 @@ footer {
     </p>
     <div class="hero-cta">
       <div class="email-form" id="emailForm">
-        <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" />
-        <button class="btn-join" onclick="joinWaitlist()">Join the movement →</button>
+        <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" autocomplete="email" />
+        <button type="button" class="btn-join" onclick="joinWaitlist()">Join the movement →</button>
+        <label class="consent-label" for="emailConsent">
+          <input type="checkbox" id="emailConsent" />
+          <span>I confirm this is my email address and I'm signing up on purpose for Earthity launch updates.</span>
+        </label>
       </div>
       <div class="success-msg" id="successMsg">
         🌱 Welcome to Eden — we're glad you're here. We'll email you when Earthity launches.
@@ -490,8 +521,12 @@ footer {
   <h2 class="section-title" style="max-width:500px;">The world needs<br>more Earthity</h2>
   <p class="section-text">We are looking for people who feel it the same way. Co-founders, developers, designers, dreamers.</p>
   <div class="email-form" style="justify-content:center; margin-top: 40px;" id="emailForm2">
-    <input type="email" class="email-input" id="emailInput2" placeholder="your@email.com" style="max-width:280px;" />
-    <button class="btn-join" onclick="joinWaitlist2()">I want in →</button>
+    <input type="email" class="email-input" id="emailInput2" placeholder="your@email.com" style="max-width:280px;" autocomplete="email" />
+    <button type="button" class="btn-join" onclick="joinWaitlist2()">I want in →</button>
+    <label class="consent-label" for="emailConsent2">
+      <input type="checkbox" id="emailConsent2" />
+      <span>I confirm this is my email address and I'm signing up on purpose for Earthity launch updates.</span>
+    </label>
   </div>
   <div class="success-msg" id="successMsg2" style="display:none; margin: 16px auto; max-width: 400px;">
     🌱 Welcome to Eden — we're glad you're here. We'll email you when Earthity launches.
@@ -523,11 +558,26 @@ function flashInvalid(input) {
   setTimeout(() => { input.style.borderColor = ''; }, 1000);
 }
 
-async function subscribe(formId, inputId, successId) {
+function flashConsent(label) {
+  label.style.borderColor = 'rgba(201, 168, 76, 0.45)';
+  label.style.color = 'rgba(232, 228, 216, 0.75)';
+  setTimeout(() => {
+    label.style.borderColor = '';
+    label.style.color = '';
+  }, 1200);
+}
+
+async function subscribe(formId, inputId, consentId, successId) {
   const input = document.getElementById(inputId);
+  const consentEl = document.getElementById(consentId);
+  const consentLabel = consentEl.closest('.consent-label');
   const email = input.value.trim().toLowerCase();
   if (!email || !EMAIL_RE.test(email)) {
     flashInvalid(input);
+    return;
+  }
+  if (!consentEl.checked) {
+    flashConsent(consentLabel);
     return;
   }
   const formRoot = document.getElementById(formId);
@@ -561,11 +611,11 @@ async function subscribe(formId, inputId, successId) {
 }
 
 function joinWaitlist() {
-  subscribe('emailForm', 'emailInput', 'successMsg');
+  subscribe('emailForm', 'emailInput', 'emailConsent', 'successMsg');
 }
 
 function joinWaitlist2() {
-  subscribe('emailForm2', 'emailInput2', 'successMsg2');
+  subscribe('emailForm2', 'emailInput2', 'emailConsent2', 'successMsg2');
 }
 
 document.getElementById('emailInput').addEventListener('keydown', e => { if (e.key === 'Enter') joinWaitlist(); });
