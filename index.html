@@ -511,39 +511,57 @@ footer {
 </footer>
 
 <script>
-// Email collection (stores locally for now)
-const emails = [];
+const SUBMIT_URL = '/.netlify/functions/submit-email';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function joinWaitlist() {
-  const input = document.getElementById('emailInput');
-  const email = input.value.trim();
-  if (!email || !email.includes('@')) {
-    input.style.borderColor = '#c9a84c';
-    setTimeout(() => input.style.borderColor = '', 1000);
+function flashInvalid(input) {
+  input.style.borderColor = '#c9a84c';
+  setTimeout(() => { input.style.borderColor = ''; }, 1000);
+}
+
+async function subscribe(formId, inputId, successId) {
+  const input = document.getElementById(inputId);
+  const email = input.value.trim().toLowerCase();
+  if (!email || !EMAIL_RE.test(email)) {
+    flashInvalid(input);
     return;
   }
-  emails.push(email);
-  document.getElementById('emailForm').style.display = 'none';
-  document.getElementById('successMsg').style.display = 'block';
-  console.log('Waitlist emails:', emails);
+  const formRoot = document.getElementById(formId);
+  const btn = formRoot.querySelector('.btn-join');
+  btn.disabled = true;
+  const prevOpacity = btn.style.opacity;
+  btn.style.opacity = '0.65';
+  try {
+    const res = await fetch(SUBMIT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    await res.json().catch(() => ({}));
+    if (!res.ok) {
+      flashInvalid(input);
+      return;
+    }
+    formRoot.style.display = 'none';
+    document.getElementById(successId).style.display = 'block';
+  } catch {
+    flashInvalid(input);
+  } finally {
+    btn.disabled = false;
+    btn.style.opacity = prevOpacity;
+  }
+}
+
+function joinWaitlist() {
+  subscribe('emailForm', 'emailInput', 'successMsg');
 }
 
 function joinWaitlist2() {
-  const input = document.getElementById('emailInput2');
-  const email = input.value.trim();
-  if (!email || !email.includes('@')) {
-    input.style.borderColor = '#c9a84c';
-    setTimeout(() => input.style.borderColor = '', 1000);
-    return;
-  }
-  emails.push(email);
-  document.getElementById('emailForm2').style.display = 'none';
-  document.getElementById('successMsg2').style.display = 'block';
+  subscribe('emailForm2', 'emailInput2', 'successMsg2');
 }
 
-// Enter key support
-document.getElementById('emailInput').addEventListener('keydown', e => { if(e.key==='Enter') joinWaitlist(); });
-document.getElementById('emailInput2').addEventListener('keydown', e => { if(e.key==='Enter') joinWaitlist2(); });
+document.getElementById('emailInput').addEventListener('keydown', e => { if (e.key === 'Enter') joinWaitlist(); });
+document.getElementById('emailInput2').addEventListener('keydown', e => { if (e.key === 'Enter') joinWaitlist2(); });
 
 // Fade in on scroll
 const observer = new IntersectionObserver(entries => {
