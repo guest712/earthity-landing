@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impressum — Earthity</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #080d08;
+  --green:   #2d6a3f;
+  --glow:    #5aad6a;
+  --gold:    #c9a84c;
+  --cream:   #e8e4d8;
+  --sage:    #8aab8a;
+  --muted:   #4a5e4a;
+  --faint:   #111e11;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 20%, #0d2010 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 80% 90%, #0a1508 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.legal-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 28px 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  border-bottom: 1px solid var(--faint);
+}
+
+.legal-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 4vw, 28px);
+  font-weight: 300;
+  color: var(--cream);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.legal-logo span { color: var(--glow); }
+
+.legal-back {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.legal-back a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.legal-back a:hover { color: var(--glow); }
+
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.legal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 6vw, 48px);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.legal-lead {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--glow);
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+
+.legal-block {
+  margin-bottom: 28px;
+}
+
+.legal-block h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+
+.legal-block p,
+.legal-block li {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--sage);
+}
+
+.legal-block strong { color: var(--cream); font-weight: 500; }
+
+.legal-block a {
+  color: var(--glow);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(90, 173, 106, 0.35);
+  transition: color 0.2s, border-color 0.2s;
+}
+.legal-block a:hover {
+  color: var(--cream);
+  border-bottom-color: var(--glow);
+}
+
+.legal-list {
+  margin-top: 10px;
+  padding-left: 1.1em;
+}
+.legal-list li { margin-bottom: 6px; }
+
+.legal-divider {
+  margin: 40px 0;
+  border: 0;
+  border-top: 1px solid var(--faint);
+}
+
+.legal-note {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--faint);
+  padding: 40px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--cream);
+}
+.footer-brand span { color: var(--glow); }
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-links a {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--glow); }
+.footer-links a[aria-current="page"] { color: var(--glow); }
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<header class="legal-header">
+  <a href="index.html" class="legal-logo">Earth<span>ity</span></a>
+  <div class="legal-back"><a href="index.html">← Zurück zur Startseite</a></div>
+</header>
+
+<main>
+  <h1 class="legal-title">Impressum</h1>
+  <p class="legal-lead">Angaben gemäß § 5 TMG</p>
+
+  <section class="legal-block">
+    <h2>Anbieter</h2>
+    <p>
+      <strong>Bohdan Kodlubovskyi</strong><br>
+      Humboldtring 100<br>
+      14473 Potsdam
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Kontakt</h2>
+    <p>E-Mail: <a href="mailto:deathfurybk@gmail.com">deathfurybk@gmail.com</a></p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+    <p>
+      Bohdan Kodlubovskyi<br>
+      Humboldtring 100<br>
+      14473 Potsdam
+    </p>
+  </section>
+
+  <hr class="legal-divider">
+
+  <section class="legal-block">
+    <p class="legal-note">
+      Dieses Impressum gilt auch für die folgenden Internetpräsenzen:
+    </p>
+    <ul class="legal-list legal-note">
+      <li><a href="https://earthity.org" rel="noopener noreferrer">https://earthity.org</a></li>
+      <li><a href="https://earthity.de" rel="noopener noreferrer">https://earthity.de</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-brand">Earth<span>ity</span></div>
+  <div class="footer-links">
+    <a href="mailto:hello@earthity.org">hello@earthity.org</a>
+    <a href="impressum.html" aria-current="page">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="https://earthity.org">earthity.org</a>
+    <a href="https://earthity.de">earthity.de</a>
+  </div>
+  <div class="footer-copy">© 2026 Earthity · In formation · Built on Ahimsa</div>
+</footer>
+
+</body>
+</html>

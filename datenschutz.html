@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datenschutz — Earthity</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #080d08;
+  --green:   #2d6a3f;
+  --glow:    #5aad6a;
+  --gold:    #c9a84c;
+  --cream:   #e8e4d8;
+  --sage:    #8aab8a;
+  --muted:   #4a5e4a;
+  --faint:   #111e11;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 20%, #0d2010 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 80% 90%, #0a1508 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.legal-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 28px 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  border-bottom: 1px solid var(--faint);
+}
+
+.legal-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 4vw, 28px);
+  font-weight: 300;
+  color: var(--cream);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.legal-logo span { color: var(--glow); }
+
+.legal-back {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.legal-back a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.legal-back a:hover { color: var(--glow); }
+
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.legal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 6vw, 48px);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.legal-lead {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--glow);
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+
+.legal-block {
+  margin-bottom: 28px;
+}
+
+.legal-block h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 12px;
+}
+
+.legal-block p,
+.legal-block li {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--sage);
+}
+
+.legal-block strong { color: var(--cream); font-weight: 500; }
+
+.legal-block a {
+  color: var(--glow);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(90, 173, 106, 0.35);
+  transition: color 0.2s, border-color 0.2s;
+}
+.legal-block a:hover {
+  color: var(--cream);
+  border-bottom-color: var(--glow);
+}
+
+.legal-list {
+  margin-top: 10px;
+  padding-left: 1.1em;
+}
+.legal-list li { margin-bottom: 6px; }
+
+.legal-divider {
+  margin: 40px 0;
+  border: 0;
+  border-top: 1px solid var(--faint);
+}
+
+.legal-note {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--faint);
+  padding: 40px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--cream);
+}
+.footer-brand span { color: var(--glow); }
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-links a {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--glow); }
+.footer-links a[aria-current="page"] { color: var(--glow); }
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<header class="legal-header">
+  <a href="index.html" class="legal-logo">Earth<span>ity</span></a>
+  <div class="legal-back"><a href="index.html">← Zurück zur Startseite</a></div>
+</header>
+
+<main>
+  <h1 class="legal-title">Datenschutzerklärung</h1>
+  <p class="legal-lead">Stand: 16. Mai 2026</p>
+
+  <section class="legal-block">
+    <h2>Verantwortlicher</h2>
+    <p>
+      Verantwortlich für die Datenverarbeitung im Zusammenhang mit diesem Online-Angebot ist:
+    </p>
+    <p>
+      <strong>Bohdan Kodlubovskyi</strong><br>
+      Einzelunternehmer<br>
+      Humboldtring 100<br>
+      14473 Potsdam<br>
+      Deutschland<br>
+      E-Mail: <a href="mailto:deathfurybk@gmail.com">deathfurybk@gmail.com</a><br>
+      Telefon: +49 176 36096720
+    </p>
+    <p class="legal-note">
+      Es besteht kein betriebliches Team mit Zugriff auf Ihre Daten außerhalb der unten genannten technischen Dienstleister (Netlify, Supabase). Die Ausarbeitung von Texten kann Hilfsmittel einschließen; dadurch werden jedoch keine zusätzlichen personenbezogenen Daten von Websitebesuchern verarbeitet.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Überblick</h2>
+    <p>
+      Diese Website ist ein einfacher Auftritt für das Projekt Earthity. Es werden derzeit <strong>keine Verkäufe</strong>, <strong>keine Zahlungsabwicklung</strong>, <strong>keine eingebetteten Karten</strong>, <strong>keine Webanalyse-Tools</strong> (z.&nbsp;B. Google Analytics) und <strong>keine Newsletter-Versand-Tools Dritter</strong> über diese Seite betrieben. Personenbezogene Daten von Besuchern werden nur verarbeitet, soweit dies für den Betrieb der Website, die technische Auslieferung und die von Ihnen freiwillig genutzte Waitlist-Funktion erforderlich ist.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Bereitstellung der Website, Server-Logfiles und Hosting</h2>
+    <p>
+      Beim Aufruf dieser Website verarbeitet der Hosting-Anbieter automatisch technische Informationen (z.&nbsp;B. IP-Adresse, Zeitpunkt des Zugriffs, angeforderte Ressource, Browsertyp, Referrer). Das dient der Bereitstellung der Seite, der Stabilität und der IT-Sicherheit.
+    </p>
+    <p>
+      <strong>Hosting-Anbieter:</strong> Netlify, Inc., 44 Tehama Street, San Francisco, CA 94105, USA.<br>
+      Datenschutzhinweise: <a href="https://www.netlify.com/privacy/" rel="noopener noreferrer">netlify.com/privacy</a>
+    </p>
+    <p>
+      <strong>Rechtsgrundlage:</strong> Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (betroffenes Interesse an sicherem und stabilem Webbetrieb).<br>
+      <strong>Speicherdauer:</strong> richtet sich nach den Vorgaben von Netlify für Server- und Zugriffsprotokolle; sobald eine Speicherung nicht mehr erforderlich ist, werden Daten gelöscht oder anonymisiert, soweit gesetzlich nichts anderes vorschreibt.
+    </p>
+    <p class="legal-note">
+      Die Domain wird über einen Registrar (Namecheap) registriert; dadurch werden beim normalen Besuch dieser Website keine zusätzlichen Daten über Namecheap gegenüber den Besuchern dieser Seite verarbeitet.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Waitlist (E-Mail für Launch-Updates)</h2>
+    <p>
+      Wenn Sie die Anmeldefunktion nutzen, übermitteln Sie Ihre <strong>E-Mail-Adresse</strong>. Vor dem Absenden müssen Sie eine <strong>Checkbox</strong> aktivieren und damit zustimmen, dass wir die Adresse zum genannten Zweck verarbeiten. Es wird <strong>kein Double-Opt-In per Bestätigungslink in einer zweiten E-Mail</strong> verwendet.
+    </p>
+    <p>
+      In der Datenbank wird für diese Funktion <strong>ausschließlich die E-Mail-Adresse</strong> gespeichert (technisch als Kleinbuchstaben normalisiert). Es werden keine Namen, keine Profilmerkmale und keine Einwilligungs-Timestamps oder IP-Adressen von uns in Supabase zu diesem Zweck gespeichert.
+    </p>
+    <p>
+      <strong>Technischer Ablauf:</strong> Die Anfrage läuft über eine bei Netlify bereitgestellte Serverless-Funktion; die Speicherung erfolgt über die Schnittstelle von <strong>Supabase</strong> in einer Datenbanktabelle für Angemeldete.
+    </p>
+    <p>
+      <strong>Anbieter Datenbank/SaaS:</strong> Supabase Inc., Nutzung über Cloud-Infrastruktur — Hinweise unter <a href="https://supabase.com/privacy" rel="noopener noreferrer">supabase.com/privacy</a>.
+    </p>
+    <p>
+      <strong>Zweck:</strong> Information über Start und angekündigte Updates von Earthity.<br>
+      <strong>Rechtsgrundlage:</strong> Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO (Einwilligung durch Checkbox).<br>
+      <strong>Widerruf:</strong> Sie können die Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen, z.&nbsp;B. durch eine formlose E-Mail an die oben genannte Adresse mit dem Betreff „Waitlist Widerruf“ oder einer kurzen Löschanfrage.
+    </p>
+    <p>
+      <strong>Speicherdauer:</strong> bis zum Widerruf oder bis zur Löschung auf Ihre Anfrage hin, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+    </p>
+    <p class="legal-note">
+      Der konkrete <strong>Speicherort</strong> der Datenbank (z.&nbsp;B. innerhalb der EU oder anderweitig) ergibt sich aus der Konfiguration Ihres Supabase-Projekts. Maßgeblich sind außerdem die dort beschriebenen Verarbeitungen und ggf. Übermittlungen durch Supabase als Auftragsverarbeiter im Rahmen von Art.&nbsp;28 DSGVO.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Kontakt per E-Mail</h2>
+    <p>
+      Wenn Sie uns außerhalb der Waitlist direkt per E-Mail kontaktieren, verarbeiten wir die in der Nachricht enthaltenen Daten (mindestens die Absenderadresse sowie Inhalt und Metadaten der Nachricht), um Ihre Anfrage zu bearbeiten.
+    </p>
+    <p>
+      <strong>Rechtsgrundlage:</strong> Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO, soweit es um vorvertragliche oder vertragliche Beziehungen geht, sonst Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (Bearbeitung der Anfrage).
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Quellcode und GitHub</h2>
+    <p>
+      Der Quellcode dieser Website kann in einem Repository bei GitHub verwaltet werden. Beim <strong>bloßen Besuch dieser Website</strong> werden dadurch keine personenbezogenen Daten von Ihnen an GitHub übermittelt. Auf dieser Seite sind keine eingebetteten GitHub-Inhalte eingebunden.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Auftragsverarbeitung und Empfänger</h2>
+    <p>Wir setzen folgende Anbieter als Teil der beschriebenen Verarbeitung ein:</p>
+    <ul class="legal-list">
+      <li><strong>Netlify, Inc.</strong> — Hosting und Ausführung der Serverless-Funktion für die Waitlist-Anfrage.</li>
+      <li><strong>Supabase Inc.</strong> — Datenbank/SaaS zur Speicherung der E-Mail-Adressen der Waitlist.</li>
+    </ul>
+    <p>
+      Soweit Anbieter als Auftragsverarbeiter tätig werden, erfolgt dies auf Grundlage von Art.&nbsp;28 DSGVO und den jeweiligen Vereinbarungen/Dokumentationen der Anbieter (AV-Verträge in den Kontoeinstellungen).
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Drittlandübermittlungen</h2>
+    <p>
+      Netlify und Supabase haben ihren Sitz in den <strong>USA</strong>. Je nach Konfiguration und Produkt können Datenverarbeitungen oder Zugriffe mit Bezug zu den USA erfolgen. In solchen Fällen stützen wir Übermittlungen soweit erforderlich auf die Vorgaben der Art.&nbsp;44 ff. DSGVO, z.&nbsp;B. auf ein Angemessenheitsbeschluss oder Standardvertragsklauseln sowie die Informationen der jeweiligen Anbieter.
+    </p>
+    <p class="legal-note">
+      Einzelheiten zu Garantien und Unterlagen finden Sie in den Datenschutz- und DPA-Dokumenten von Netlify und Supabase.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Cookies und ähnliche Technologien</h2>
+    <p>
+      Wir setzen auf dieser Website keine eigenen Marketing- oder Analyse-Cookies ein und binden keine entsprechenden Dienste ein, die eine Einwilligung nach §&nbsp;25 TTDSG erfordern würden. Technisch können durch den Browser oder das Betriebssystem übliche Mechanismen bestehen; eine aktive Cookie-Banner-Steuerung ist derzeit nicht erforderlich.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Speicherdauer (allgemein)</h2>
+    <p>
+      Wir speichern personenbezogene Daten nur so lange, wie dies für den jeweiligen Zweck erforderlich ist oder gesetzliche Pflichten bestehen. Danach löschen oder anonymisieren wir die Daten.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Datensicherheit</h2>
+    <p>
+      Wir verwenden zumutbare technische und organisatorische Maßnahmen — insbesondere Verschlüsselung beim Transport über HTTPS und den geschützten Zugang zu Dienstkonten. Ein absolutes Schutzniveau ist im Internet nicht erreichbar.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Automatisierte Entscheidungen</h2>
+    <p>Eine ausschließlich automatisierte Entscheidung im Sinne von Art.&nbsp;22 DSGVO findet nicht statt.</p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Ihre Rechte</h2>
+    <p>Sie haben — unter den gesetzlichen Voraussetzungen — insbesondere Rechte auf:</p>
+    <ul class="legal-list">
+      <li>Auskunft (Art.&nbsp;15 DSGVO)</li>
+      <li>Berichtigung (Art.&nbsp;16 DSGVO)</li>
+      <li>Löschung (Art.&nbsp;17 DSGVO)</li>
+      <li>Einschränkung der Verarbeitung (Art.&nbsp;18 DSGVO)</li>
+      <li>Datenübertragbarkeit (Art.&nbsp;20 DSGVO)</li>
+      <li>Widerspruch gegen Verarbeitungen auf Grundlage von Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (Art.&nbsp;21 DSGVO)</li>
+      <li>Widerruf einer Einwilligung mit Wirkung für die Zukunft</li>
+      <li>Beschwerde bei einer Datenschutzaufsichtsbehörde</li>
+    </ul>
+    <p>
+      Zur Ausübung Ihrer Rechte genügt eine Nachricht an:<br>
+      <a href="mailto:deathfurybk@gmail.com">deathfurybk@gmail.com</a>
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Beschwerderecht</h2>
+    <p>
+      Sie haben das Recht, sich bei einer Aufsichtsbehörde zu beschweren, insbesondere in dem Mitgliedstaat Ihres gewöhnlichen Aufenthaltsorts, Ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes.
+    </p>
+  </section>
+
+  <section class="legal-block">
+    <h2>Änderungen</h2>
+    <p>
+      Wir passen diese Erklärung an, wenn sich die Datenverarbeitung oder die Website ändert. Maßgeblich ist die hier veröffentlichte aktuelle Fassung mit dem genannten Stand.
+    </p>
+  </section>
+
+  <p class="legal-note" style="margin-top: 40px;">
+    Hinweis: Diese Datenschutzerklärung ersetzt keine individuelle Rechtsberatung. Bei operativen Änderungen (andere Region bei Supabase, zusätzliche Tools, Newsletter-Dienst) sollten Sie den Text entsprechend aktualisieren.
+  </p>
+</main>
+
+<footer>
+  <div class="footer-brand">Earth<span>ity</span></div>
+  <div class="footer-links">
+    <a href="mailto:hello@earthity.org">hello@earthity.org</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html" aria-current="page">Datenschutz</a>
+    <a href="https://earthity.org">earthity.org</a>
+    <a href="https://earthity.de">earthity.de</a>
+  </div>
+  <div class="footer-copy">© 2026 Earthity · In formation · Built on Ahimsa</div>
+</footer>
+
+</body>
+</html>
