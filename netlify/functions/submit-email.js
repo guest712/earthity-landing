@@ -29,17 +29,17 @@ exports.handler = async (event) => {
   let payload;
   try {
     if (!event.body || !String(event.body).trim()) {
-      return jsonResponse(400, { error: "Пустое тело запроса" });
+      return jsonResponse(400, { error: "Request body is empty" });
     }
     payload = JSON.parse(event.body);
   } catch {
-    return jsonResponse(400, { error: "Некорректный JSON" });
+    return jsonResponse(400, { error: "Invalid JSON" });
   }
 
   const emailRaw =
     typeof payload.email === "string" ? payload.email.trim().toLowerCase() : "";
   if (!emailRaw || !EMAIL_RE.test(emailRaw)) {
-    return jsonResponse(400, { error: "Укажите корректный email" });
+    return jsonResponse(400, { error: "Please enter a valid email address" });
   }
 
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -47,14 +47,16 @@ exports.handler = async (event) => {
   if (!supabaseUrl || !supabaseKey) {
     console.error("submit-email: missing SUPABASE_URL or SUPABASE_ANON_KEY");
     return jsonResponse(500, {
-      error: "Сервис временно недоступен. Попробуйте позже.",
+      error: "Service temporarily unavailable. Please try again later.",
     });
   }
 
   const baseUrl = supabaseUrl.replace(/\/$/, "");
 
   try {
-    const response = await fetch(`${baseUrl}/rest/v1/subscribers`, {
+    // Plain INSERT: duplicate email hits UNIQUE on `email` → 409 from PostgREST.
+    const url = `${baseUrl}/rest/v1/subscribers`;
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         apikey: supabaseKey,
@@ -65,28 +67,23 @@ exports.handler = async (event) => {
       body: JSON.stringify({ email: emailRaw }),
     });
 
-    // Уже есть в списке — для пользователя тот же успех
     if (response.status === 409) {
-      return jsonResponse(200, {
-        message: "Успешно сохранено в Эдеме!",
-      });
+      return jsonResponse(200, { alreadySubscribed: true });
     }
 
     if (!response.ok) {
       const errText = await response.text();
       console.error("submit-email: Supabase error", response.status, errText);
       return jsonResponse(500, {
-        error: "Не удалось сохранить. Попробуйте позже.",
+        error: "Could not save. Please try again later.",
       });
     }
 
-    return jsonResponse(200, {
-      message: "Успешно сохранено в Эдеме!",
-    });
+    return jsonResponse(200, { alreadySubscribed: false });
   } catch (err) {
     console.error("submit-email:", err);
     return jsonResponse(500, {
-      error: "Не удалось сохранить. Попробуйте позже.",
+      error: "Could not save. Please try again later.",
     });
   }
 };

@@ -349,7 +349,7 @@ footer {
         <button class="btn-join" onclick="joinWaitlist()">Join the movement →</button>
       </div>
       <div class="success-msg" id="successMsg">
-        🌱 You're in. We'll reach out when Earthity launches.
+        🌱 Welcome to Eden — we're glad you're here. We'll email you when Earthity launches.
       </div>
       <p class="hero-hint">Be the first to know when we launch · No spam · Ever.</p>
     </div>
@@ -494,7 +494,7 @@ footer {
     <button class="btn-join" onclick="joinWaitlist2()">I want in →</button>
   </div>
   <div class="success-msg" id="successMsg2" style="display:none; margin: 16px auto; max-width: 400px;">
-    🌱 Welcome to the movement. We'll be in touch.
+    🌱 Welcome to Eden — we're glad you're here. We'll email you when Earthity launches.
   </div>
 </div>
 
@@ -513,6 +513,10 @@ footer {
 <script>
 const SUBMIT_URL = '/.netlify/functions/submit-email';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const SUCCESS_EDEN =
+  "Welcome to Eden — we're glad you're here. We'll email you when Earthity launches.";
+const SUCCESS_ALREADY_SOLARPUNK =
+  "You're already part of our solarpunk journey.";
 
 function flashInvalid(input) {
   input.style.borderColor = '#c9a84c';
@@ -537,13 +541,17 @@ async function subscribe(formId, inputId, successId) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
     });
-    await res.json().catch(() => ({}));
+    const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       flashInvalid(input);
       return;
     }
+    const msgEl = document.getElementById(successId);
+    const prefix = data.alreadySubscribed ? '🌞 ' : '🌱 ';
+    msgEl.textContent =
+      prefix + (data.alreadySubscribed ? SUCCESS_ALREADY_SOLARPUNK : SUCCESS_EDEN);
     formRoot.style.display = 'none';
-    document.getElementById(successId).style.display = 'block';
+    msgEl.style.display = 'block';
   } catch {
     flashInvalid(input);
   } finally {
