@@ -1,0 +1,7 @@
+# earthity.de → German landing (same Netlify site as earthity.org)
+[[redirects]]
+  from = "/"
+  to = "/de/"
+  status = 302
+  force = true
+  conditions = { Host = ["earthity.de", "www.earthity.de"] }
